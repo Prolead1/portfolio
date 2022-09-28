@@ -6,12 +6,10 @@ import Interests from './components/Interests';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Testimonials from './components/Testimonials';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import Navbar from './components/Navbar';
 
-interface IRoutesProps {}
-
-const CreateRoutes: FunctionComponent<IRoutesProps> = (props) => {
+const CreateRoutes: FunctionComponent = (props) => {
   return (
     <>
       <Navbar />
