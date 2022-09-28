@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  aws-s3: circleci/aws-s3@2.7.31
+  aws-s3: circleci/aws-s3@3.0.0
 jobs:
   build:
     docker:
@@ -30,9 +30,8 @@ jobs:
       - run: npm run build
 
       - aws-s3/sync:
-          from: build
+          from: dist
           to: "s3://rahulthakerportfolio/"
           arguments: |
             --acl public-read \
-            --cache-control "max-age=86400"                
-          overwrite: true
+            --cache-control "max-age=86400"
