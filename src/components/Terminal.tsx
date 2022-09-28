@@ -1,18 +1,7 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  FunctionComponent,
-  ReactElement,
-  SetStateAction,
-  useRef,
-  useState,
-} from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { handleCommand } from '../services/terminalService';
 
-interface ITerminalProps {}
-
-const Terminal: FunctionComponent<ITerminalProps> = (props) => {
+const Terminal: React.FunctionComponent = () => {
   return (
     <div className="flex flex-col w-5/6 h-4/6 mx-auto m-28">
       <TermTopBar />
@@ -23,9 +12,7 @@ const Terminal: FunctionComponent<ITerminalProps> = (props) => {
   );
 };
 
-interface ITermTopBarProps {}
-
-const TermTopBar: FunctionComponent<ITermTopBarProps> = (props) => {
+const TermTopBar: React.FunctionComponent = () => {
   return (
     <div className="bg-gray-600 w-full h-6 rounded-t-lg flex flex-row relative">
       <TermBtnGrp />
@@ -36,9 +23,7 @@ const TermTopBar: FunctionComponent<ITermTopBarProps> = (props) => {
   );
 };
 
-interface ITermBtnGrpProps {}
-
-const TermBtnGrp: FunctionComponent<ITermBtnGrpProps> = (props) => {
+const TermBtnGrp: React.FunctionComponent = () => {
   return (
     <div className="flex flex-row w-full h-6 flex-shrink mx-2 space-x-2 items-center">
       <TermBtn color="bg-red-500" />
@@ -50,10 +35,10 @@ const TermBtnGrp: FunctionComponent<ITermBtnGrpProps> = (props) => {
 
 interface ITermBtnProps {
   color: string;
-  icon?: ReactElement;
+  icon?: React.ReactElement;
 }
 
-const TermBtn: FunctionComponent<ITermBtnProps> = (props) => {
+const TermBtn: React.FunctionComponent<ITermBtnProps> = (props) => {
   const className = props.color + ' w-3 h-3/6 rounded-full';
   return (
     <div className={className}>
@@ -62,28 +47,26 @@ const TermBtn: FunctionComponent<ITermBtnProps> = (props) => {
   );
 };
 
-interface ITermContentProps {}
-
-const TermContent: FunctionComponent<ITermContentProps> = (props) => {
+const TermContent: React.FunctionComponent = (props) => {
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const hint = "Enter a command or type 'help' to see a list of all commands...";
   let id = 1;
 
-  const handleClear = () => {
+  const handleClear = (): void => {
     bottomRef.current?.scrollIntoView(false);
   };
 
-  const render = () => {
+  const render = (): void => {
     const key = id;
     id = key + 1;
-    if (!termState[key])
-      setTermState((prev: ReactElement[]) => [
+    if (termState[key] === undefined)
+      setTermState((prev: React.ReactElement[]) => [
         ...prev,
         <TermRow key={key} render={render} handleClear={handleClear} />,
       ]);
   };
 
-  const [termState, setTermState] = useState<ReactElement[]>([
+  const [termState, setTermState] = useState<React.ReactElement[]>([
     <TermRow key={0} render={render} handleClear={handleClear} hint={hint} />,
   ]);
 
@@ -96,25 +79,25 @@ const TermContent: FunctionComponent<ITermContentProps> = (props) => {
 };
 
 interface ITermRowProps {
-  render: Function;
-  handleClear: Function;
+  render: () => void;
+  handleClear: () => void;
   hint?: string;
 }
 
-const TermRow: FunctionComponent<ITermRowProps> = (props) => {
+const TermRow: React.FunctionComponent<ITermRowProps> = (props) => {
   const [output, setOutput] = useState('');
   const [enteredCmd, setEnteredCmd] = useState('');
 
-  const fetchOutput = async () => {
+  const fetchOutput = async (): Promise<void> => {
     const result = await handleCommand(enteredCmd);
-    if (result) {
+    if (result != null) {
       setOutput(result);
     } else {
       props.handleClear();
     }
   };
-  const handleSubmit = () => {
-    fetchOutput();
+  const handleSubmit = (): void => {
+    fetchOutput().catch(console.error);
     props.render();
   };
 
@@ -131,7 +114,7 @@ const TermRow: FunctionComponent<ITermRowProps> = (props) => {
   );
 };
 
-const TermInfo: FunctionComponent = (props) => {
+const TermInfo: React.FunctionComponent = (props) => {
   return (
     <div className="select-none ">
       <code>
@@ -146,18 +129,18 @@ const TermInfo: FunctionComponent = (props) => {
 
 interface ITermInputProps {
   setEnteredCmd: Dispatch<SetStateAction<string>>;
-  handleSubmit: Function;
+  handleSubmit: () => void;
   hint?: string;
 }
 
-const TermInput: FunctionComponent<ITermInputProps> = (props) => {
+const TermInput: React.FunctionComponent<ITermInputProps> = (props) => {
   const [disabled, setDisabled] = useState(false);
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     setDisabled(true);
     props.handleSubmit();
   };
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     props.setEnteredCmd(e.target.value);
   };
   return (

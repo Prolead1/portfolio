@@ -1,9 +1,7 @@
-import { FunctionComponent } from 'react';
+import React from 'react';
 import BtnNav from './BtnNav';
 
-interface INavbarProps {}
-
-const Navbar: FunctionComponent<INavbarProps> = (props) => (
+const Navbar: React.FunctionComponent = (props) => (
   <>
     <div className="flex flex-auto mx-auto p-6 bg-gray-900 w-full min-w-max sticky">
       <BtnNav name="Rahul Thaker" animate="_" path="/" />
