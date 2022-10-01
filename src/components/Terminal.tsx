@@ -4,7 +4,7 @@ import { handleCommand } from '../services/terminalService';
 const Terminal: React.FunctionComponent = () => {
   return (
     <div className="m-0 flex flex-row w-5/6 h-4/6 mx-auto">
-      <div className="flex flex-col w-full h-full mt-28">
+      <div className="flex flex-col w-full h-full">
         <TermTopBar />
         <div className="bg-black mb-24 h-full min-h-10 overflow-auto">
           <TermContent />
@@ -18,7 +18,7 @@ const TermTopBar: React.FunctionComponent = () => {
   return (
     <div className="bg-gray-600 w-full h-6 rounded-t-lg flex flex-row relative">
       <TermBtnGrp />
-      <div className="flex flex-row w-full h-6 flex-grow items-center pr-48">
+      <div className="flex flex-row w-full h-6 flex-grow items-center pr-36">
         <code className="text-gray-200 select-none">hello!</code>
       </div>
     </div>

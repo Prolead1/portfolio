@@ -25,9 +25,7 @@ jobs:
             - ~/.cache
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm run lint
-
-      - run: npm run build
+      - run: npm run serve
 
       - aws-s3/sync:
           from: dist
