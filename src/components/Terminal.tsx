@@ -3,10 +3,12 @@ import { handleCommand } from '../services/terminalService';
 
 const Terminal: React.FunctionComponent = () => {
   return (
-    <div className="flex flex-col w-5/6 h-4/6 mx-auto m-28">
-      <TermTopBar />
-      <div className="bg-black mb-24 h-full rounded-lg min-h-10 overflow-auto">
-        <TermContent />
+    <div className="m-0 flex flex-row w-5/6 h-4/6 mx-auto">
+      <div className="flex flex-col w-full h-full mt-28">
+        <TermTopBar />
+        <div className="bg-black mb-24 h-full min-h-10 overflow-auto">
+          <TermContent />
+        </div>
       </div>
     </div>
   );
