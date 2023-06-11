@@ -1,4 +1,3 @@
-import React from 'react';
 import BtnNav from './BtnNav';
 
 const Navbar: React.FunctionComponent = (props) => (

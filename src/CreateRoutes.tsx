@@ -6,10 +6,9 @@ import Interests from './components/Interests';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Testimonials from './components/Testimonials';
-import React, { FunctionComponent } from 'react';
 import Navbar from './components/Navbar';
 
-const CreateRoutes: FunctionComponent = (props) => {
+const CreateRoutes: React.FunctionComponent = (props) => {
   return (
     <>
       <Navbar />
